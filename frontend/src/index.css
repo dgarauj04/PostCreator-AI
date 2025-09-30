@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+:root { 
+  --brand-red-light: #e53d3d; 
+  --brand-red-dark: #a91a1a;
+ --azul: #0f172a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  min-width: 100vw;
+ font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+ overflow-x: hidden;
+}
+
+.bg-brand-red-light {
+  background-color: var(--brand-red-light);
+}
+
+.bg-brand-red-dark {
+  background-color: var(--brand-red-dark);
+}
+
+.text-brand-red-light {
+  color: var(--brand-red-light);
+}
+
+.links:hover {
+  color: var(--brand-red-light);
+}
+
+.text-brand-red-dark {
+  color: var(--brand-red-dark);
+}
+
+.bg-gradient-red {
+  background: linear-gradient(to right, var(--brand-red-dark), var(--brand-red-light));
+}
+
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border: var(--brand-red-light) solid 3px;
+}
+
+.scroll-form::-webkit-scrollbar {
+  width: 10px;
+  height: 8px;
+} 
+
+.scroll-form::-webkit-scrollbar-track {
+  background: var(--azul);
+}
+
+.scroll-form::-webkit-scrollbar-thumb {
+  background: var(--brand-red-light);
+  border-radius: 10px;
+  border: 3px solid var(--azul);
+}
+.scroll-form::-webkit-resizer {
+  background-color: var(--brand-red-light);
+  border-radius: 6px;
+  border-top-left-radius: 10px;
+  border: 4px solid var(--azul);
+  outline: 2px solid var(--azul);
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+@keyframes gradient-x {
+  0%, 
+  100% { 
+    background-position: 0% 50%; 
+  }
+  50% { 
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes fade-in {
+  0% { 
+    opacity: 0;
+    transform: translateY(10px); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+.background-canvas {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0; 
+  background-color: var(--azul);
+  pointer-events: auto; 
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}

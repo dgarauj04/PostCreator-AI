@@ -1,0 +1,5 @@
+{
+  "name": "PostGenius AI",
+  "description": "An AI-powered application that generates complete, platform-optimized social media posts—including text, hashtags, and a conceptual image—based on a user's theme, target platform, and desired tone of voice.",
+  "requestFramePermissions": []
+}
