@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { UserPlus } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import Background from '../components/Background';
@@ -12,31 +12,27 @@ export const Register: React.FC = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { register } = useAuth();
-  const navigate = useNavigate();
 
   const clickSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    setIsLoading(true);
-
+    
     if (!email || !userName || !password || !confirmPassword) {
       setError('Por favor, preencha todos os campos.');
-      setIsLoading(false);
       return;
     }
-
+    
     if (password !== confirmPassword) {
       setError('As senhas não coincidem.');
-      setIsLoading(false);
       return;
     }
-
+    
     if (password.length < 6) {
       setError('A senha deve ter pelo menos 6 caracteres.');
-      setIsLoading(false);
       return;
     }
-
+    
+    setIsLoading(true);
     try {
       await register(email, password, userName);
     } catch (err) {
