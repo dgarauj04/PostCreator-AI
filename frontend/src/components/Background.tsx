@@ -52,8 +52,6 @@ const Background: React.FC<SquaresProps> = ({
         }
       }
 
-      const now = Date.now();
-
       trailRef.current = trailRef.current.map((point) => ({
         ...point,
         opacity: point.opacity - fadeSpeed

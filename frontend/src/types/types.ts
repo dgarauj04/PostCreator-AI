@@ -1,3 +1,36 @@
+export interface User {
+  id: string;
+  email: string;
+  username: string;
+}
+
+export interface AuthResponse {
+  access_token: string;
+  user: User;
+}
+
+export interface AuthContextType {
+  user: User | null;
+  token: string | null;
+  isLoading: boolean;
+  login: (loginIdentifier: string, password: string) => Promise<void>;
+  register: (email: string, password: string, username: string) => Promise<void>;
+  logout: () => void;
+}
+
+export interface PostSuggestion {
+  id: string;
+  postText: string;
+  hashtags: string[];
+  improvementTips: string[];
+  imageVideoSuggestion: string;
+  platform: string;
+}
+
+export interface SavedPost extends PostSuggestion {
+  savedAt: number;
+}
+
 export enum SocialPlatform {
   Instagram = "Instagram",
   LinkedIn = "LinkedIn",
@@ -17,36 +50,4 @@ export interface PostFormState {
   theme: string;
   platform: SocialPlatform;
   tone: ToneOfVoice;
-}
-
-export interface PostSuggestion {
-  postText: string;
-  hashtags: string[];
-  imageVideoSuggestion: string;
-  platform: SocialPlatform;
-  improvementTips: string[];
-}
-
-export interface SavedPost extends PostSuggestion {
-    id: string;
-    savedAt: number;
-}
-
-export interface User {
-  email: string;
-  accessToken?: string;
-}
-
-export interface AuthResponse {
-  message: string;
-  access_token: string;
-  user: User;
-}
-
-export interface AuthContextType {
-  user: User | null;
-  login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string) => Promise<void>;
-  logout: () => void;
-  isLoading: boolean;
 }

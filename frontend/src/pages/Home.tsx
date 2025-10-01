@@ -14,7 +14,7 @@ import { useAuth } from '../contexts/AuthContext';
 type View = 'home' | 'history';
 
 function Home() {
-  const { token, logout } = useAuth(); 
+  const { token } = useAuth();
   const [view, setView] = useState<View>('home');
   const [postSuggestions, setPostSuggestions] = useState<PostSuggestion[]>([]);
   const [savedPosts, setSavedPosts] = useState<SavedPost[]>([]);
@@ -44,15 +44,12 @@ function Home() {
         }
       },
       {
-        root: null, 
-        threshold: 0.1, 
+        root: null,
+        threshold: 0.1,
       }
     );
 
-    const currentRef = resultsRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
+    const currentRef = resultsRef.current;    if (currentRef) observer.observe(currentRef);
 
     return () => currentRef && observer.unobserve(currentRef);
   }, [isLoading]); 
