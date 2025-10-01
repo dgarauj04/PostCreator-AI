@@ -15,10 +15,10 @@ def create_app():
 
     if not mongo_uri:
         app.config['MONGO_URI'] = f"mongodb://localhost:27017/{db_name}"
-    elif "mongodb+srv" in mongo_uri:
-        app.config['MONGO_URI'] = f"{mongo_uri.split('?')[0].rstrip('/')}/{db_name}?{mongo_uri.split('?')[1] if '?' in mongo_uri else ''}&tls=true&tlsCAFile={certifi.where()}"
     else:
-        app.config['MONGO_URI'] = f"{mongo_uri.rstrip('/')}/{db_name}"
+        # Para conexões Atlas (mongodb+srv) ou outras, apenas garante o nome do DB.
+        # A lógica de TLS será tratada na inicialização do banco.
+        app.config['MONGO_URI'] = f"{mongo_uri.split('?')[0].rstrip('/')}/{db_name}"
         
     app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'fallback_secret_key')
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = int(os.getenv('JWT_ACCESS_TOKEN_EXPIRES', 3600))  

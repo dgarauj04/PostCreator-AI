@@ -1,13 +1,20 @@
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
+import certifi
 
 mongo = PyMongo()
 bcrypt = Bcrypt()
 jwt = JWTManager()
 
 def init_db(app):
-    mongo.init_app(app)
+    connect_args = {}
+    
+    if "mongodb+srv" in app.config.get("MONGO_URI", ""):
+        connect_args['tls'] = True
+        connect_args['tlsCAFile'] = certifi.where()
+        
+    mongo.init_app(app, **connect_args)
     bcrypt.init_app(app)
     jwt.init_app(app)
     
