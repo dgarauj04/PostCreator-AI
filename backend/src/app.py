@@ -11,14 +11,12 @@ def create_app():
     app = Flask(__name__)
     
     mongo_uri = os.getenv('MONGO_URI')
-    db_name = os.getenv('DB_NAME', 'postcreator')
 
     if not mongo_uri:
-        app.config['MONGO_URI'] = f"mongodb://localhost:27017/{db_name}"
+        app.config['MONGO_URI'] = "mongodb://localhost:27017/postcreator"
     else:
-        # Para conexões Atlas (mongodb+srv) ou outras, apenas garante o nome do DB.
-        # A lógica de TLS será tratada na inicialização do banco.
-        app.config['MONGO_URI'] = f"{mongo_uri.split('?')[0].rstrip('/')}/{db_name}"
+        app.config['MONGO_URI'] = mongo_uri
+        app.config['MONGO_DBNAME'] = os.getenv('MONGO_DBNAME', 'postcreator')
         
     app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'fallback_secret_key')
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = int(os.getenv('JWT_ACCESS_TOKEN_EXPIRES', 3600))  
