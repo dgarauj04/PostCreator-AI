@@ -3,12 +3,20 @@ from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 
+# Importa o pacote certifi para fornecer o bundle de certificados CA
+import certifi
+
 load_dotenv()
 
 def create_app():
     app = Flask(__name__)
     
-    app.config['MONGO_URI'] = os.getenv('MONGO_URI', 'mongodb://localhost:27017/postcreator')
+    mongo_uri = os.getenv('MONGO_URI')
+    if mongo_uri and "mongodb+srv" in mongo_uri:
+        app.config['MONGO_URI'] = f"{mongo_uri}&tls=true&tlsCAFile={certifi.where()}"
+    else:
+        app.config['MONGO_URI'] = mongo_uri or 'mongodb://localhost:27017/postcreator'
+        
     app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'fallback_secret_key')
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = int(os.getenv('JWT_ACCESS_TOKEN_EXPIRES', 3600))  
     
