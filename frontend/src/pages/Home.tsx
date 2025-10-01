@@ -37,21 +37,21 @@ function Home() {
   }, [token]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShowScrollButton(false);
-        }
-      },
-      {
-        root: null,
-        threshold: 0.1,
+    const currentRef = resultsRef.current;
+    if (!currentRef) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setShowScrollButton(false);
       }
-    );
+    }, {
+      root: null,
+      threshold: 0.1,
+    });
 
-    const currentRef = resultsRef.current;    if (currentRef) observer.observe(currentRef);
+    observer.observe(currentRef);
 
-    return () => currentRef && observer.unobserve(currentRef);
+    return () => observer.unobserve(currentRef);
   }, [isLoading]); 
 
   const savePost = useCallback(async (post: PostSuggestion) => {
