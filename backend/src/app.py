@@ -11,6 +11,15 @@ def create_app():
     app = Flask(__name__)
     
     mongo_uri = os.getenv('MONGO_URI')
+    
+    if mongo_uri:
+        safe_uri = mongo_uri.split('@')
+        if len(safe_uri) > 1:
+            print(f"✅ MONGO_URI encontrada. Conectando a: {safe_uri[0].split('//')[0]}//<user>:<password>@{safe_uri[1]}")
+        else:
+            print("✅ MONGO_URI encontrada, mas parece ter um formato inesperado.")
+    else:
+        print("❌ ATENÇÃO: A variável de ambiente MONGO_URI não foi encontrada!")
 
     if not mongo_uri:
         app.config['MONGO_URI'] = "mongodb://localhost:27017/postcreator"

@@ -19,8 +19,17 @@ def init_db(app):
     jwt.init_app(app)
     
     try:
+        if mongo.cx is None:
+            print("❌ Conexão com MongoDB falhou na inicialização (mongo.cx is None). Verifique a MONGO_URI.")
+            return 
+
+        print("ℹ️ Tentando enviar comando 'ping' para o MongoDB...")
         mongo.db.command('ping')
         print("✅ Conectado ao MongoDB com sucesso!")
         print(f"📊 Database: {mongo.db.name}")
     except Exception as e:
-        print(f"❌ Erro ao conectar com MongoDB: {e}")
+        import traceback
+        print(f"❌ Erro detalhado ao conectar com MongoDB: {e}")
+        print("--- Traceback completo ---")
+        traceback.print_exc()
+        print("-------------------------")
