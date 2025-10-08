@@ -63,12 +63,13 @@ input:focus, textarea:focus, select:focus {
   border-radius: 10px;
   border: 3px solid var(--azul);
 }
+
 .scroll-form::-webkit-resizer {
-  background-color: var(--brand-red-light);
-  border-radius: 6px;
+  background-color: #253353;
+  border-radius: 2px;
   border-top-left-radius: 10px;
-  border: 4px solid var(--azul);
-  outline: 2px solid var(--azul);
+  border: none;
+  outline: transparent;
 }
 
 .animate-fade-in {
